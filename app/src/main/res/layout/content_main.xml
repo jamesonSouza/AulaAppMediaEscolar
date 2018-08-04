@@ -26,7 +26,7 @@
         android:layout_below="@+id/txtTitulo"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:text="TextView"
+        android:text="1º Bimestre"
         android:textSize="18sp"
         tools:text="1º Bimestre" />
 
@@ -133,6 +133,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/txtMateria"
         android:layout_marginBottom="209dp"
-        android:text="Button"
+        android:text="CALCULAR"
         tools:text="CALCULAR" />
 </RelativeLayout>

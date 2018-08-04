@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     double notaProva, notaTrabalho, media;
     String resultado;
+
+    boolean dadosValidados= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +40,54 @@ public class MainActivity extends AppCompatActivity {
         txtSituacao=findViewById(R.id.txtSituacaoFinal);
 
 
+
+
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                notaProva = Double.parseDouble(editNotaProva.getText().toString());
-                notaTrabalho = Double.parseDouble(editNotaTrabalho.getText().toString());
 
-                media = (notaProva+ notaTrabalho)/2;
-                txtMedia.setText(String.valueOf(media));
+                try {
+                    if(editNotaProva.getText().toString().length()>0){
+                        notaProva = Double.parseDouble(editNotaProva.getText().toString());
+                    }
+                    else
+                    {
+                        editNotaProva.setError("!");
+                        editNotaProva.requestFocus();
+                        dadosValidados=false;
+                    }
+                    if(editNotaTrabalho.getText().toString().length()>0){
+                        notaTrabalho = Double.parseDouble(editNotaTrabalho.getText().toString());
+                    }
+                    else
+                    {
+                        editNotaTrabalho.setError("!");
+                        editNotaTrabalho.requestFocus();
+                        dadosValidados=false;
+                    }
+                    if(editMateria.getText().toString().length()==0){
+                          editMateria.setError("!");
+                          editMateria.requestFocus();
+                          dadosValidados=false;
+                    }
+                    else
+                    {
+                        dadosValidados=true;
+                    }
 
-                if(media>=7 )
-                    txtSituacao.setText("Aprovado");
-                else
-                    txtSituacao.setText("Reprovado");
+                if(dadosValidados) {
+                    media = (notaProva + notaTrabalho) / 2;
+                    txtMedia.setText(String.valueOf(media));
+
+                    if (media >= 7)
+                        txtSituacao.setText("Aprovado");
+                    else
+                        txtSituacao.setText("Reprovado");
+                }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "necessario inserir valores aos campos", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
